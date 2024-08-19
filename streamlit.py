@@ -7,7 +7,7 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.llms import OpenAI
 
 # Initialize the embeddings model
-embeddings = HuggingFaceEmbeddings(model_name="C:\Users\SLNX1\Downloads\mistral-7b-instruct-v0.1.Q4_K_M.gguf")
+embeddings = HuggingFaceEmbeddings(model_name=r"C:\Users\SLNX1\Downloads\mistral-7b-instruct-v0.1.Q4_K_M.gguf")
 
 # Function to read PDFs and extract text
 def load_pdfs_from_folder(folder_path):
