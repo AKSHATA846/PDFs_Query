@@ -46,7 +46,7 @@ if user_question:
     docs = faiss_index.similarity_search(user_question, k=3)
     
     # Use OpenAI LLM to answer the question based on the retrieved documents
-    llm = OpenAI(api_key="your_openai_api_key")  # Replace with your OpenAI API key
+    llm = OpenAI(api_key="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")  # Replace with your OpenAI API key
     chain = load_qa_chain(llm, chain_type="stuff")
     
     # Get the answer
