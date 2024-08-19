@@ -28,7 +28,7 @@ def create_faiss_index(texts):
     return FAISS.from_texts(texts, embeddings)
 
 # Path to your PDFs folder
-pdf_folder_path = "path_to_your_pdfs_folder"  # Update this with your folder path
+pdf_folder_path = "/content/drive/MyDrive/Multiple_PDFs"  # Update this with your folder path
 
 # Load PDFs and create FAISS index in the background
 texts = load_pdfs_from_folder(pdf_folder_path)
