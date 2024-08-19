@@ -8,3 +8,4 @@ pypdf
 accelerate
 llama-cpp-python
 langchain-huggingface
+streamlit
