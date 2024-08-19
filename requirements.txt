@@ -1,11 +1,12 @@
+streamlit
 langchain-community
 langchain
+PyPDF2
+pypdf
 torch
 sentence_transformers
 faiss-cpu
 huggingface-hub
-pypdf
 accelerate
-
 langchain-huggingface
-streamlit
+
