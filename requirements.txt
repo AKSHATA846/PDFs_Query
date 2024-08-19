@@ -1,1 +1,10 @@
+langchain-community
 langchain
+torch
+sentence_transformers
+faiss-cpu
+huggingface-hub
+pypdf
+accelerate
+llama-cpp-python
+langchain-huggingface
