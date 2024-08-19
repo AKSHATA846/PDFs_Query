@@ -6,6 +6,6 @@ faiss-cpu
 huggingface-hub
 pypdf
 accelerate
-llama-cpp-python
+
 langchain-huggingface
 streamlit
