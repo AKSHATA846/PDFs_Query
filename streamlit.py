@@ -46,7 +46,7 @@ if user_question:
     docs = faiss_index.similarity_search(user_question, k=3)
     
     # Use HuggingFaceHub LLM to answer the question based on the retrieved documents
-    llm = HuggingFaceHub(repo_id="gemini_model_repo_id", model_kwargs={"api_key": "your_gemini_api_key"})  # Replace with your Gemini model repo ID and API key
+    llm = HuggingFaceHub(repo_id="gemini_model_repo_id", model_kwargs={"api_key": "AIzaSyDAXHJaUBYHzw7L1CS5Sj7n0htWTEU4fsA"})  # Replace with your Gemini model repo ID and API key
     chain = load_qa_chain(llm, chain_type="stuff")
     
     # Get the answer
