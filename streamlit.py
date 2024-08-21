@@ -4,7 +4,7 @@ from PyPDF2 import PdfReader
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
-from langchain.llms import OpenAI
+from langchain.llms import HuggingFaceHub
 
 # Initialize the embeddings model
 embeddings = HuggingFaceEmbeddings(model_name=r"C:\Users\SLNX1\Downloads\mistral-7b-instruct-v0.1.Q4_K_M.gguf")
@@ -29,8 +29,6 @@ def create_faiss_index(texts):
 
 # Path to your PDFs folder
 pdf_folder_path = r"C:\Users\SLNX1\Documents\Project_Files"  # Update this with your folder path
-#pdf_folder_path = r"C:\Users\SLNX1\Documents\Project_Files"
-
 
 # Load PDFs and create FAISS index in the background
 texts = load_pdfs_from_folder(pdf_folder_path)
@@ -47,8 +45,8 @@ if user_question:
     # Search for the most relevant text in the PDFs
     docs = faiss_index.similarity_search(user_question, k=3)
     
-    # Use OpenAI LLM to answer the question based on the retrieved documents
-    llm = OpenAI(api_key="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")  # Replace with your OpenAI API key
+    # Use HuggingFaceHub LLM to answer the question based on the retrieved documents
+    llm = HuggingFaceHub(repo_id="gemini_model_repo_id", model_kwargs={"api_key": "your_gemini_api_key"})  # Replace with your Gemini model repo ID and API key
     chain = load_qa_chain(llm, chain_type="stuff")
     
     # Get the answer
