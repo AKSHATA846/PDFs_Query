@@ -9,10 +9,19 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS  # Assuming FAISS is installed
 from langchain.document_loaders import PyPDFDirectoryLoader
 
-# Load pre-trained model and tokenizer
+from langchain.vectorstores import FAISS
+from sentence_transformers import SentenceTransformer
+
+# Load pre-trained model
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
-model = SentenceTransformer(model_name)  # SentenceTransformer for embedding models
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = SentenceTransformer(model_name)
+
+# Path to the saved FAISS index
+faiss_index_path = "/content/drive/MyDrive/Model/faiss_index"
+
+# Load the FAISS index with the embeddings model
+vector_store = FAISS.load_local(faiss_index_path, model)
+
 
 # Load or create vector store (adjust paths as needed)
 try:
