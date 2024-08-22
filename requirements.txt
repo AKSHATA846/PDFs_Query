@@ -6,12 +6,13 @@ PyPDF2
 pypdf
 torch
 sentence_transformers
-faiss-cpu
+faiss-gpu
 huggingface-hub
 accelerate
 langchain-huggingface
 gradio
 PyPDFDirectoryLoader
-pyttsx3
 speech_recognition
+LlamaCpp
+RetrievalQA
 
