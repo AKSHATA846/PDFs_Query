@@ -9,10 +9,9 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS  # Assuming FAISS is installed
 from langchain.document_loaders import PyPDFDirectoryLoader
 
-
-# Load pre-trained model and tokenizer (replace with your choices)
+# Load pre-trained model and tokenizer
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
-model = HuggingFaceEmbeddings.from_pretrained(model_name)
+model = SentenceTransformer(model_name)  # SentenceTransformer for embedding models
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
 # Load or create vector store (adjust paths as needed)
