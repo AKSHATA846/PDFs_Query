@@ -4,5 +4,4 @@ python -m venv venv
 # Activate the virtual environment
 source venv/bin/activate
 
-# Install pypdfdirectoryloader (assuming it's available on PyPI)
-!pip install pypdfdirectoryloader
+
