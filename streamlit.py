@@ -19,9 +19,8 @@ model_name = "sentence-transformers/all-MiniLM-L6-v2"
 model = SentenceTransformer(model_name)
 
 # Path to the saved FAISS index
-faiss_index_path = "https://drive.google.com/drive/folders/1-03KVsNzg9Heos4FYNLgK8ZHWX3CbSEd?usp=drive_link"
-#https://drive.google.com/drive/folders/1-03KVsNzg9Heos4FYNLgK8ZHWX3CbSEd?usp=drive_link
-#https://drive.google.com/drive/folders/1-03KVsNzg9Heos4FYNLgK8ZHWX3CbSEd?usp=drive_link
+faiss_index_path = "/content/drive/MyDrive/Model/faiss_1/index.faiss"
+
 try:
     # Attempt to load the FAISS index
     vector_store = FAISS.load_local(faiss_index_path, model, allow_dangerous_deserialization=True)
