@@ -5,4 +5,4 @@ python -m venv venv
 source venv/bin/activate
 
 # Install pypdfdirectoryloader (assuming it's available on PyPI)
-!pip install pypdfdirectoryloader==24.0
+!pip install pypdfdirectoryloader==24.1
