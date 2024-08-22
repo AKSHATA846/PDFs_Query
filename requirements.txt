@@ -11,7 +11,7 @@ huggingface-hub
 accelerate
 langchain-huggingface
 gradio
-pypdfdirectoryloader==1.2.3
+pypdfdirectoryloader
 speech_recognition
 LlamaCpp
 RetrievalQA
