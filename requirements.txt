@@ -6,7 +6,7 @@ PyPDF2
 pypdf
 torch
 sentence_transformers
- faiss-gpu==1.7.2
+ faiss-gpu
 huggingface-hub
 accelerate
 langchain-huggingface
