@@ -3,7 +3,7 @@ gradio
 langchain-community
 langchain
 PyPDF2
-pypdf
+pypdf 
 torch
 sentence_transformers
 faiss-cpu
