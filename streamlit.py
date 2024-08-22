@@ -19,8 +19,9 @@ model = SentenceTransformer(model_name)
 # Path to the saved FAISS index
 faiss_index_path = "/content/drive/MyDrive/Model/faiss_index"
 
-# Load the FAISS index with the embeddings model
-vector_store = FAISS.load_local(faiss_index_path, model)
+# Load the FAISS index with the embeddings model, enabling dangerous deserialization
+vector_store = FAISS.load_local(faiss_index_path, model, allow_dangerous_deserialization=True)
+
 
 
 # Load or create vector store (adjust paths as needed)
