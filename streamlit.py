@@ -11,16 +11,33 @@ from langchain.document_loaders import PyPDFDirectoryLoader
 
 from langchain.vectorstores import FAISS
 from sentence_transformers import SentenceTransformer
+from langchain.docstore.document import Document
+from langchain.embeddings import HuggingFaceEmbeddings
 
 # Load pre-trained model
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
 model = SentenceTransformer(model_name)
 
 # Path to the saved FAISS index
-faiss_index_path = "/content/drive/MyDrive/Model/faiss_index"
+faiss_index_path = "/content/drive/MyDrive/Model/faiss_1"
+#https://drive.google.com/drive/folders/1-03KVsNzg9Heos4FYNLgK8ZHWX3CbSEd?usp=drive_link
+try:
+    # Attempt to load the FAISS index
+    vector_store = FAISS.load_local(faiss_index_path, model, allow_dangerous_deserialization=True)
+except FileNotFoundError:
+    # If not found, create a new index
+    print("FAISS index not found. Creating a new one...")
+    # Load your PDF documents here (replace with actual loading code)
+    pdf_directory = "/content/sample_data/data"  # Adjust path if needed
+    documents = [Document(page_content="Your text here")]
 
-# Load the FAISS index with the embeddings model, enabling dangerous deserialization
-vector_store = FAISS.load_local(faiss_index_path, model, allow_dangerous_deserialization=True)
+    # Convert documents to embeddings and create a new FAISS index
+    embeddings = HuggingFaceEmbeddings(model_name)
+    vector_store = FAISS.from_documents(documents, embeddings)
+
+    # Save the new index
+    vector_store.save_local(faiss_index_path)
+
 
 
 
