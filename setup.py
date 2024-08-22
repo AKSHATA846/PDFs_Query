@@ -1,1 +1,1 @@
-!pip install pypdfdirectoryloader==1.2.3
+!pip install pypdfdirectoryloader==24.0
