@@ -1,0 +1,3 @@
+venv
+git add .
+git commit -m "Added venv and installed dependencies"
