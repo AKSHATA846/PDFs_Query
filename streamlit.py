@@ -98,4 +98,4 @@ if st.button("Enable Text-to-Speech"):
     answer = answer_query(st.text_input("Enter your question:"))
     speak_answer(answer) 
 
-st.write("**Note:** Text-to-speech and speech-
+
