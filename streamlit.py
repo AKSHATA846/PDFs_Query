@@ -6,8 +6,7 @@ from langchain.llms import LlamaCpp  # Assuming LlamaCpp is installed
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS  # Assuming FAISS is installed
 from langchain.document_loaders import PyPDFDirectoryLoader
-import pyttsx3  # For text-to-speech (optional)
-import speech_recognition as sr  # For speech-to-text (optional)
+
 
 # Load pre-trained model and tokenizer (replace with your choices)
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
@@ -50,7 +49,7 @@ qa = RetrievalQA.from_chain_type(
 )
 
 # Streamlit app layout
-st.title("Your Easy-to-Use Question Answering App")
+st.title("Question Answering App")
 
 # Text input with Gradio
 def answer_query(query):
