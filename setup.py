@@ -3,6 +3,7 @@
 !pip install streamlit
 #!pip install SpeechRecognition
 !pip install transformers sentence-transformers
+!pip install faiss-cpu
 
 
 
