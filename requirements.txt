@@ -9,4 +9,9 @@ faiss-cpu
 huggingface-hub
 accelerate
 langchain-huggingface
+gradio
+FAISS
+PyPDFDirectoryLoader
+pyttsx3
+speech_recognition
 
