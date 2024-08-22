@@ -4,9 +4,7 @@ python -m venv venv
 # Activate the virtual environment
 source venv/bin/activate
 
-python -m venv myenv
-source myenv/bin/activate  # On Windows: myenv\Scripts\activate
-!pip install SpeechRecognition
+
 
 
 
