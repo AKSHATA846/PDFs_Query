@@ -1,62 +1,102 @@
-import os
 import streamlit as st
-from PyPDF2 import PdfReader
+import gradio as gr
+from langchain.chains import RetrievalQA  # Assuming langchain is installed
 from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS
-from langchain.chains.question_answering import load_qa_chain
-from langchain.llms import HuggingFaceHub
+from langchain.llms import LlamaCpp  # Assuming LlamaCpp is installed
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.vectorstores import FAISS  # Assuming FAISS is installed
+from langchain.document_loaders import PyPDFDirectoryLoader
+import pyttsx3  # For text-to-speech (optional)
+import speech_recognition as sr  # For speech-to-text (optional)
 
-# Initialize the embeddings model
-embeddings = HuggingFaceEmbeddings(model_name=r"C:\Users\SLNX1\Downloads\mistral-7b-instruct-v0.1.Q4_K_M.gguf")
+# Load pre-trained model and tokenizer (replace with your choices)
+model_name = "sentence-transformers/all-MiniLM-L6-v2"
+model = HuggingFaceEmbeddings.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-# Function to read PDFs and extract text
-def load_pdfs_from_folder(folder_path):
-    texts = []
-    for filename in os.listdir(folder_path):
-        if filename.endswith(".pdf"):
-            pdf_path = os.path.join(folder_path, filename)
-            with open(pdf_path, "rb") as file:
-                reader = PdfReader(file)
-                text = ""
-                for page in reader.pages:
-                    text += page.extract_text()
-                texts.append(text)
-    return texts
+# Load or create vector store (adjust paths as needed)
+try:
+    vector_store = FAISS.load_local("/content/drive/MyDrive/Model/faiss_1")
+except FileNotFoundError:
+    # Load PDFs from a directory (replace with your data path)
+    pdf_directory = "/content/sample_data/data"  # Adjust path if needed
+    loader = PyPDFDirectoryLoader(pdf_directory)
+    data = loader.load()
 
-# Function to create embeddings and store them in FAISS
-def create_faiss_index(texts):
-    return FAISS.from_texts(texts, embeddings)
+    # Process text chunks
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
+    text_chunks = text_splitter.split_documents(data)
 
-# Path to your PDFs folder
-pdf_folder_path = r"C:\Users\SLNX1\Documents\Project_Files"  # Update this with your folder path
+    # Create vector store
+    vector_store = FAISS.from_documents(text_chunks, embedding=model)
 
-# Load PDFs and create FAISS index in the background
-texts = load_pdfs_from_folder(pdf_folder_path)
-faiss_index = create_faiss_index(texts)
+# Load or create LLM model (adjust path as needed)
+try:
+    llm = LlamaCpp(
+        streaming=True,
+        model_path="/content/drive/MyDrive/mistral-7b-instruct-v0.1.Q4_K_M.gguf",
+        temperature=0.75,
+        top_p=1,
+        verbose=True,
+        n_ctx=4096
+    )
+except FileNotFoundError:
+    st.error("LLM model not found. Please provide the path to your model.")
+    sys.exit(1)
 
-# Streamlit UI
-st.title("PDF Question Answering App")
-st.write("Ask questions related to the content of the PDFs.")
+# Create the question-answering chain using Streamlit and Gradio
+qa = RetrievalQA.from_chain_type(
+    llm=llm, chain_type="stuff", retriever=vector_store.as_retriever(search_kwargs={"k": 2})
+)
 
-# User input for question
-user_question = st.text_input("Enter your question:")
+# Streamlit app layout
+st.title("Your Easy-to-Use Question Answering App")
 
-if user_question:
-    # Search for the most relevant text in the PDFs
-    docs = faiss_index.similarity_search(user_question, k=3)
-    
-    # Use HuggingFaceHub LLM to answer the question based on the retrieved documents
-    llm = HuggingFaceHub(repo_id="gemini_model_repo_id", model_kwargs={"api_key": "AIzaSyDAXHJaUBYHzw7L1CS5Sj7n0htWTEU4fsA"})  # Replace with your Gemini model repo ID and API key
-    chain = load_qa_chain(llm, chain_type="stuff")
-    
-    # Get the answer
-    answer = chain.run(input_documents=docs, question=user_question)
-    
-    # Display the answer
-    st.write("### Answer:")
-    st.write(answer)
+# Text input with Gradio
+def answer_query(query):
+    return qa.run(query)["result"]
 
-    # Optionally, display the most relevant documents
-    st.write("### Relevant Document Passages:")
-    for doc in docs:
-        st.write(doc.page_content)
+iface = gr.Interface(
+    fn=answer_query,
+    inputs="text",
+    outputs="text",
+    title="Ask your question here:",
+    theme="automatic"  # Optional for a more user-friendly theme
+)
+
+st.write(iface)
+
+# Speech-to-text functionality (optional)
+def get_voice_input():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening for voice input...")
+        audio = r.listen(source)
+        try:
+            text = r.recognize_google(audio)
+            print(f"Voice Input: {text}")
+            return text
+        except sr.UnknownValueError:
+            print("Sorry, I did not understand the audio.")
+            return None
+        except sr.RequestError:
+            print("Sorry, there was a problem with the request.")
+            return None
+
+if st.button("Enable Voice Input"):
+    voice_input = get_voice_input()
+    if voice_input:
+        answer = answer_query(voice_input)
+        st.write(f"Answer: {answer}")
+
+# Text-to-speech functionality (optional)
+def speak_answer(answer):
+    engine = pyttsx3.init()
+    engine.say(answer)
+    engine.runAndWait()
+
+if st.button("Enable Text-to-Speech"):
+    answer = answer_query(st.text_input("Enter your question:"))
+    speak_answer(answer) 
+
+st.write("**Note:** Text-to-speech and speech-
