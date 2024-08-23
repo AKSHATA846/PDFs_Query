@@ -9,6 +9,9 @@ from langchain.chains import RetrievalQA
 import speech_recognition as sr
 # Import the correct module for LLaMA
 from langchain_community.llms import LlamaCpp
+#from langchain_community.llms import LlamaCpp
+from langchain_core.callbacks import CallbackManager, StreamingStdOutCallbackHandler
+from langchain_core.prompts import PromptTemplate
 import pyttsx3
 import os
 
