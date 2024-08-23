@@ -1,8 +1,8 @@
 import streamlit as st
 import gradio as gr
+import requests
+import os
 from sentence_transformers import SentenceTransformer
-from transformers import AutoTokenizer
-#from langchain.chains import RetrievalQA
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.llms import LlamaCpp
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -15,29 +15,35 @@ import pyttsx3
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
 embedding_model = SentenceTransformer(model_name)
 
-# Path to the saved FAISS index
-faiss_index_path = "Documents/index.faiss/index (1).faiss"
+# Define the GitHub URLs for the FAISS files
+github_base_url = "https://github.com/PDFs_Query/path-to-files/"
+faiss_index_url = github_base_url + "Documents/index.faiss/index%20(1).faiss"
+faiss_index_pkl_url = github_base_url + "Documents/index.faiss/index.pkl"
+
+# Define local paths where the files will be saved
+local_index_path = "Documents/index.faiss/index (1).faiss"
+local_index_pkl_path = "Documents/index.faiss/index.pkl"
+
+# Function to download files from GitHub
+def download_file(url, local_path):
+    response = requests.get(url)
+    response.raise_for_status()  # Ensure the request was successful
+    os.makedirs(os.path.dirname(local_path), exist_ok=True)
+    with open(local_path, "wb") as f:
+        f.write(response.content)
+
+# Download the FAISS files from GitHub if they don't exist locally
+if not os.path.exists(local_index_path) or not os.path.exists(local_index_pkl_path):
+    st.warning("Downloading FAISS index files from GitHub...")
+    download_file(faiss_index_url, local_index_path)
+    download_file(faiss_index_pkl_url, local_index_pkl_path)
 
 # Load or create FAISS vector store
 try:
-    vector_store = FAISS.load_local(faiss_index_path, embedding_model, allow_dangerous_deserialization=True)
+    vector_store = FAISS.load_local(local_index_path, embedding_model, allow_dangerous_deserialization=True)
 except FileNotFoundError:
-    st.warning("FAISS index not found. Creating a new one...")
-    # Load PDFs from a directory (replace with your data path)
-    pdf_directory = "/content/sample_data/data"  # Adjust path if needed
-    loader = PyPDFDirectoryLoader(pdf_directory)
-    documents = loader.load()
-
-    # Split documents into text chunks
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
-    text_chunks = text_splitter.split_documents(documents)
-
-    # Create embeddings and vector store
-    embeddings = HuggingFaceEmbeddings(model_name)
-    vector_store = FAISS.from_documents(text_chunks, embeddings)
-
-    # Save the new FAISS index
-    vector_store.save_local(faiss_index_path)
+    st.error("FAISS index files could not be found or loaded.")
+    st.stop()
 
 # Load or create LLM model (adjust path as needed)
 llm_model_path = "/content/drive/MyDrive/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
