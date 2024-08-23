@@ -38,3 +38,5 @@ index.pkl
 # Streamlit
 *.streamlit/
 
+import warnings
+warnings.filterwarnings("ignore", category=SyntaxWarning)
