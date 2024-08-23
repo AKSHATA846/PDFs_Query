@@ -12,31 +12,27 @@ __pycache__/
 *.db
 *.sqlite3
 
-# Virtual Environment
+# Virtual environment
 venv/
-env/
 .env/
 
-# IDE
-.idea/
-.vscode/
+# Streamlit
+*.streamlit/
 
-# Build and Distribution
-build/
-dist/
-*.egg-info
-.eggs/
+# Jupyter Notebooks
+*.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
 
 # Logs
 *.log
 
-# Temporary files
+# System
 .DS_Store
 Thumbs.db
 
-# Secrets and credentials
-secrets/
-
-# FAISS indexes and other large data files
+# FAISS files
 index.faiss
 index.pkl
