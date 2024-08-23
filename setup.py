@@ -4,7 +4,6 @@
 !pip install SpeechRecognition
 !pip install transformers sentence-transformers
 !pip install faiss-cpu
-!pip uninstall RetrievalQA
 !pip install RetrievalQA
 
 
