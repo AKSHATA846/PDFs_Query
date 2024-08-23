@@ -14,7 +14,11 @@ from langchain_core.callbacks import CallbackManager, StreamingStdOutCallbackHan
 from langchain_core.prompts import PromptTemplate
 import pyttsx3
 import os
+#from transformers import AutoTokenizer
 from transformers import AutoTokenizer
+tokenizer = AutoTokenizer.from_pretrained('mistral-7b-instruct-v0.1.Q4_K_M.gguf')
+tokenizer.clean_up_tokenization_spaces = True  # or False, depending on your preference
+
 import warnings
 warnings.filterwarnings("ignore", category=SyntaxWarning)
 
