@@ -8,7 +8,7 @@ from langchain.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 import speech_recognition as sr
 # Import the correct module for LLaMA
-from llama_cpp import LlamaCpp
+from langchain_community.llms import LlamaCpp
 import pyttsx3
 import os
 
