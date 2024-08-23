@@ -15,6 +15,8 @@ from langchain_core.prompts import PromptTemplate
 import pyttsx3
 import os
 from transformers import AutoTokenizer
+import warnings
+warnings.filterwarnings("ignore", category=SyntaxWarning)
 
 
 
