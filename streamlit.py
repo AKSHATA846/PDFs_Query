@@ -14,20 +14,24 @@ model_name = "sentence-transformers/all-MiniLM-L6-v2"
 embedding_model = SentenceTransformer(model_name)
 
 # Define the GitHub URLs for the FAISS files
-github_base_url = "https://raw.githubusercontent.com/PDFs_Query/Documents/index.faiss/main/"
+github_base_url = "https://raw.githubusercontent.com/AKSHATA846/PDFs_Query/main/"
 faiss_index_url = github_base_url + "index%20(1).faiss"
 faiss_index_pkl_url = github_base_url + "index.pkl"
 
 # Define local paths where the files will be saved temporarily
-local_index_path = "index.faiss"
+local_index_path = "index.faiss(1)"
 local_index_pkl_path = "index.pkl"
 
 # Function to download files from GitHub
 def download_file(url, local_path):
-    response = requests.get(url)
-    response.raise_for_status()  # Ensure the request was successful
-    with open(local_path, "wb") as f:
-        f.write(response.content)
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Ensure the request was successful
+        with open(local_path, "wb") as f:
+            f.write(response.content)
+        print(f"Downloaded file from {url} to {local_path}")
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error downloading file from {url}: {e}")
 
 # Download the FAISS files from GitHub
 st.info("Downloading FAISS index files from GitHub...")
@@ -42,7 +46,7 @@ except FileNotFoundError:
     st.stop()
 
 # Load or create LLM model (adjust path as needed)
-llm_model_path = "https://github.com/your-repo-name/path-to-model/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+llm_model_path = "/content/drive/MyDrive/mistral-7b-instruct-v0.1.Q4_K_M.gguf""
 
 try:
     llm = LlamaCpp(
