@@ -1,6 +1,14 @@
 import streamlit as st
+import gradio as gr
 import requests
+from sentence_transformers import SentenceTransformer
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.llms import LlamaCpp
+from langchain.vectorstores import FAISS
+import speech_recognition as sr
+import pyttsx3
 import os
+
 
 # Define the GitHub URLs for the FAISS files
 github_base_url = "https://raw.githubusercontent.com/AKSHATA846/PDFs_Query/main/Documents/"
