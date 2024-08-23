@@ -1,4 +1,4 @@
-import streamlit as st
+#import streamlit as st
 import gradio as gr
 import requests
 from sentence_transformers import SentenceTransformer
