@@ -3,7 +3,7 @@ import gradio as gr
 import requests
 from sentence_transformers import SentenceTransformer
 from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.llms import LlamaCpp  # Correct import for LlamaCpp
+from llama_cpp import LlamaCpp
 from langchain.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 import speech_recognition as sr
@@ -40,16 +40,21 @@ if not os.path.exists(local_index_path) or not os.path.exists(local_index_pkl_pa
     st.error("One or both files were not downloaded successfully.")
     st.stop()
 
+# Check file sizes (optional, but helps in verifying correct download)
+if os.path.getsize(local_index_path) == 0 or os.path.getsize(local_index_pkl_path) == 0:
+    st.error("One or both files are empty.")
+    st.stop()
+
 # Load or create FAISS vector store
 try:
-    # Assuming the FAISS index and pkl files are correctly downloaded
+    # Load FAISS index
     embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
     vector_store = FAISS.load_local(local_index_path, embedding_model, allow_dangerous_deserialization=True)
 except Exception as e:
     st.error(f"Error loading FAISS vector store: {e}")
     st.stop()
 
-# Load or create LLM model (adjust path as needed)
+# Load or create LLM model
 llm_model_url = "https://github.com/AKSHATA846/PDFs_Query/raw/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
 llm_model_path = "mistral-7b-instruct-v0.1.Q4_K_M.gguf"
 
