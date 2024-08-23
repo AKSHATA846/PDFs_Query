@@ -47,7 +47,7 @@ if not os.path.exists(local_index_path) or not os.path.exists(local_index_pkl_pa
 llm_model_path = "https://github.com/your-username/your-repo-name/raw/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
 
 try:
-    llm = LlamaCpp(
+    llm = llama-cpp-python(
         model_path=llm_model_path,
         streaming=True,
         temperature=0.75,
