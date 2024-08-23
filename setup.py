@@ -9,6 +9,8 @@
 !pip install streamlit gradio langchain SpeechRecognition pyttsx3 sentence-transformers
 !pip install pyttsx3
 !pip install LlamaCpp
+!pip install llama-cpp
+
 
 
 
