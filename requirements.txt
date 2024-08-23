@@ -12,9 +12,9 @@ accelerate
 langchain-huggingface
 gradio
 SpeechRecognition
-llama-cpp-python
+#llama-cpp-python
 #LlamaCPP
-
+LlamaCpp
 #RetrievalQA==24.2
 pyttsx3
 
