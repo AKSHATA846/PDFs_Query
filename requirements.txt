@@ -11,9 +11,9 @@ huggingface-hub
 accelerate
 langchain-huggingface
 gradio
-#speech_recognition
+speech_recognition
 LlamaCpp
-#RetrievalQA
+RetrievalQA
 
 
 
