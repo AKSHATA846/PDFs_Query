@@ -14,9 +14,9 @@ model_name = "sentence-transformers/all-MiniLM-L6-v2"
 embedding_model = SentenceTransformer(model_name)
 
 # Define the GitHub URLs for the FAISS files
-github_base_url = "github_base_url = "https://raw.githubusercontent.com/PDFs_Query/Documents/index.faiss/main/"
-faiss_index_url = github_base_url + "Documents/index.faiss/index%20(1).faiss"
-faiss_index_pkl_url = github_base_url + "Documents/index.faiss/index.pkl"
+github_base_url = "https://raw.githubusercontent.com/PDFs_Query/Documents/index.faiss/main/"
+faiss_index_url = github_base_url + "index%20(1).faiss"
+faiss_index_pkl_url = github_base_url + "index.pkl"
 
 # Define local paths where the files will be saved temporarily
 local_index_path = "index.faiss"
