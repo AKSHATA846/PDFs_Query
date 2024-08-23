@@ -15,11 +15,11 @@ embedding_model = SentenceTransformer(model_name)
 
 # Define the GitHub URLs for the FAISS files
 github_base_url = "https://raw.githubusercontent.com/AKSHATA846/PDFs_Query/main/"
-faiss_index_url = github_base_url + "index(1).faiss"
+faiss_index_url = github_base_url + "index.faiss"
 faiss_index_pkl_url = github_base_url + "index.pkl"
 
 # Define local paths where the files will be saved temporarily
-local_index_path = "index(1).faiss"
+local_index_path = "index.faiss"
 local_index_pkl_path = "index.pkl"
 
 # Function to download files from GitHub
