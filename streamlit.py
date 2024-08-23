@@ -14,6 +14,9 @@ from langchain_core.callbacks import CallbackManager, StreamingStdOutCallbackHan
 from langchain_core.prompts import PromptTemplate
 import pyttsx3
 import os
+from transformers import AutoTokenizer
+
+
 
 # Define the GitHub URLs for the FAISS files
 github_base_url = "https://raw.githubusercontent.com/AKSHATA846/PDFs_Query/main/FAISS/"
