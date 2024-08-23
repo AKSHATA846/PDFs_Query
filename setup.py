@@ -4,7 +4,7 @@
 !pip install SpeechRecognition
 !pip install transformers sentence-transformers
 !pip install faiss-cpu
-!pip install RetrievalQA
+!pip install RetrievalQA==24.2
 !pip install langchain
 !pip install streamlit gradio langchain SpeechRecognition pyttsx3 sentence-transformers
 
