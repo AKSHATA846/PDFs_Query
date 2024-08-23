@@ -5,9 +5,7 @@ import os
 from sentence_transformers import SentenceTransformer
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.llms import LlamaCpp
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS
-from langchain.document_loaders import PyPDFDirectoryLoader
 import speech_recognition as sr
 import pyttsx3
 
@@ -16,37 +14,35 @@ model_name = "sentence-transformers/all-MiniLM-L6-v2"
 embedding_model = SentenceTransformer(model_name)
 
 # Define the GitHub URLs for the FAISS files
-github_base_url = "https://github.com/PDFs_Query/Documents/"
+github_base_url = "github_base_url = "https://raw.githubusercontent.com/PDFs_Query/Documents/index.faiss/main/"
 faiss_index_url = github_base_url + "Documents/index.faiss/index%20(1).faiss"
 faiss_index_pkl_url = github_base_url + "Documents/index.faiss/index.pkl"
 
-# Define local paths where the files will be saved
-local_index_path = "Documents/index.faiss/index (1).faiss"
-local_index_pkl_path = "Documents/index.faiss/index.pkl"
+# Define local paths where the files will be saved temporarily
+local_index_path = "index.faiss"
+local_index_pkl_path = "index.pkl"
 
 # Function to download files from GitHub
 def download_file(url, local_path):
     response = requests.get(url)
     response.raise_for_status()  # Ensure the request was successful
-    os.makedirs(os.path.dirname(local_path), exist_ok=True)
     with open(local_path, "wb") as f:
         f.write(response.content)
 
-# Download the FAISS files from GitHub if they don't exist locally
-if not os.path.exists(local_index_path) or not os.path.exists(local_index_pkl_path):
-    st.warning("Downloading FAISS index files from GitHub...")
-    download_file(faiss_index_url, local_index_path)
-    download_file(faiss_index_pkl_url, local_index_pkl_path)
+# Download the FAISS files from GitHub
+st.info("Downloading FAISS index files from GitHub...")
+download_file(faiss_index_url, local_index_path)
+download_file(faiss_index_pkl_url, local_index_pkl_path)
 
-# Load or create FAISS vector store
+# Load the FAISS vector store from the downloaded files
 try:
     vector_store = FAISS.load_local(local_index_path, embedding_model, allow_dangerous_deserialization=True)
 except FileNotFoundError:
-    st.error("FAISS index files could not be found or loaded.")
+    st.error("Failed to load the FAISS index files.")
     st.stop()
 
 # Load or create LLM model (adjust path as needed)
-llm_model_path = "/content/drive/MyDrive/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+llm_model_path = "https://github.com/your-repo-name/path-to-model/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
 
 try:
     llm = LlamaCpp(
