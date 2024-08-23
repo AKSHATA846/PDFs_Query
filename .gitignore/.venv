@@ -1,2 +1,40 @@
+# Virtual environment
+.venv/
+
 python -m venv .venv
 .venv\Scripts\activate
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+
+
+# Environment variables
+.env/
+
+# IDE
+.vscode/
+.idea/
+
+# Jupyter Notebooks
+*.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# System
+.DS_Store
+Thumbs.db
+
+# FAISS files
+index.faiss
+index.pkl
+
+# Streamlit
+*.streamlit/
+
