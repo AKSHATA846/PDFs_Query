@@ -10,7 +10,7 @@
 !pip install pyttsx3
 !pip install LlamaCpp
 !pip install llama-cpp
-!pip install llama-cpp-python
+#!pip install llama-cpp-python
 
 
 
