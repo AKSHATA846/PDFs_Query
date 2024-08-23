@@ -2,7 +2,7 @@ import streamlit as st
 import gradio as gr
 import requests
 from sentence_transformers import SentenceTransformer
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 #from llama_cpp import LlamaCpp
 from langchain.vectorstores import FAISS
 from langchain.chains import RetrievalQA
