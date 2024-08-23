@@ -4,7 +4,7 @@ import requests
 from sentence_transformers import SentenceTransformer
 from langchain_community.embeddings import HuggingFaceEmbeddings
 #from llama_cpp import LlamaCpp
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 import speech_recognition as sr
 # Import the correct module for LLaMA
