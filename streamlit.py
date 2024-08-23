@@ -16,7 +16,7 @@ model_name = "sentence-transformers/all-MiniLM-L6-v2"
 embedding_model = SentenceTransformer(model_name)
 
 # Path to the saved FAISS index
-faiss_index_path = "Documents/index.faiss"
+faiss_index_path = "Documents/index.faiss/index (1).faiss"
 
 # Load or create FAISS vector store
 try:
