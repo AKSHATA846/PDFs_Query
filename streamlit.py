@@ -46,7 +46,7 @@ except FileNotFoundError:
     st.stop()
 
 # Load or create LLM model (adjust path as needed)
-llm_model_path = "/content/drive/MyDrive/mistral-7b-instruct-v0.1.Q4_K_M.gguf""
+llm_model_path = "/content/drive/MyDrive/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
 
 try:
     llm = LlamaCpp(
