@@ -16,7 +16,7 @@ model_name = "sentence-transformers/all-MiniLM-L6-v2"
 embedding_model = SentenceTransformer(model_name)
 
 # Define the GitHub URLs for the FAISS files
-github_base_url = "https://github.com/PDFs_Query/path-to-files/"
+github_base_url = "https://github.com/PDFs_Query/Documents/"
 faiss_index_url = github_base_url + "Documents/index.faiss/index%20(1).faiss"
 faiss_index_pkl_url = github_base_url + "Documents/index.faiss/index.pkl"
 
