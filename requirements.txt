@@ -17,6 +17,9 @@ SpeechRecognition
 LlamaCpp
 #RetrievalQA==24.2
 pyttsx3
+sentence-transformers>=2.2.0
+transformers>=4.30.0
+
 
 
 
