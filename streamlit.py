@@ -2,7 +2,7 @@ import streamlit as st
 import gradio as gr
 from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer
-from langchain.chains import RetrievalQA
+#from langchain.chains import RetrievalQA
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.llms import LlamaCpp
 from langchain.text_splitter import RecursiveCharacterTextSplitter
