@@ -3,7 +3,8 @@ import gradio as gr
 import requests
 from sentence_transformers import SentenceTransformer
 from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.llms import llama-cpp-python
+from llama_cpp import LlamaCpp
+#from langchain.llms import llama-cpp-python
 from langchain.vectorstores import FAISS
 import speech_recognition as sr
 import pyttsx3
