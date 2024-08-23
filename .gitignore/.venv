@@ -1,9 +1,9 @@
 # Virtual environment
 .venv/
-
+python -m venv gradio-env
 python -m venv .venv
 .venv\Scripts\activate
-
+.\gradio-env\Scripts\activate
 # Python
 __pycache__/
 *.pyc
@@ -11,8 +11,8 @@ __pycache__/
 *.pyd
 *.db
 *.sqlite3
-
-
+import gradio as gr
+print(gr.__version__)
 
 # Environment variables
 .env/
