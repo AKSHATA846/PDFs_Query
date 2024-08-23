@@ -16,7 +16,7 @@ import pyttsx3
 import os
 
 # Define the GitHub URLs for the FAISS files
-github_base_url = "https://raw.githubusercontent.com/AKSHATA846/PDFs_Query/main/Documents/"
+github_base_url = "https://raw.githubusercontent.com/AKSHATA846/PDFs_Query/main/FAISS/"
 faiss_index_url = github_base_url + "index.faiss"
 faiss_index_pkl_url = github_base_url + "index.pkl"
 
