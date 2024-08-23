@@ -1,6 +1,7 @@
 !pip install --upgrade pip
-!pip show streamlit
-!pip install streamlit
+#!pip show streamlit
+#!pip install streamlit
+!pip install gradio
 !pip install SpeechRecognition
 !pip install transformers sentence-transformers
 !pip install faiss-cpu
