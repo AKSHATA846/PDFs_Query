@@ -56,7 +56,7 @@ except Exception as e:
 
 # Load or create LLM model
 llm_model_url = "https://github.com/AKSHATA846/PDFs_Query/raw/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
-llm_model_path = "mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+llm_model_path = "/content/drive/MyDrive/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
 
 # Download the LLM model file
 def download_llm_model(url, local_path):
