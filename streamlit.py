@@ -3,13 +3,12 @@ import gradio as gr
 import requests
 from sentence_transformers import SentenceTransformer
 from langchain.embeddings import HuggingFaceEmbeddings
-from llama_cpp import LlamaCpp
-#from langchain.llms import llama-cpp-python
+from langchain.llms import LlamaCpp  # Correct import for LlamaCpp
 from langchain.vectorstores import FAISS
+from langchain.chains import RetrievalQA
 import speech_recognition as sr
 import pyttsx3
 import os
-
 
 # Define the GitHub URLs for the FAISS files
 github_base_url = "https://raw.githubusercontent.com/AKSHATA846/PDFs_Query/main/Documents/"
@@ -41,14 +40,36 @@ if not os.path.exists(local_index_path) or not os.path.exists(local_index_pkl_pa
     st.error("One or both files were not downloaded successfully.")
     st.stop()
 
-# Rest of your app code...
-
+# Load or create FAISS vector store
+try:
+    # Assuming the FAISS index and pkl files are correctly downloaded
+    embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+    vector_store = FAISS.load_local(local_index_path, embedding_model, allow_dangerous_deserialization=True)
+except Exception as e:
+    st.error(f"Error loading FAISS vector store: {e}")
+    st.stop()
 
 # Load or create LLM model (adjust path as needed)
-llm_model_path = "https://github.com/your-username/your-repo-name/raw/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+llm_model_url = "https://github.com/AKSHATA846/PDFs_Query/raw/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+llm_model_path = "mistral-7b-instruct-v0.1.Q4_K_M.gguf"
 
+# Download the LLM model file
+def download_llm_model(url, local_path):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Ensure the request was successful
+        with open(local_path, "wb") as f:
+            f.write(response.content)
+        st.success(f"Downloaded model from {url} to {local_path}")
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error downloading model from {url}: {e}")
+
+st.info("Downloading LLM model file...")
+download_llm_model(llm_model_url, llm_model_path)
+
+# Load LLM model
 try:
-    llm = llama-cpp-python(
+    llm = LlamaCpp(
         model_path=llm_model_path,
         streaming=True,
         temperature=0.75,
@@ -120,4 +141,3 @@ if st.button("Enable Text-to-Speech"):
         answer = answer_query(question)
         speak_answer(answer)
         st.write(f"Answer: {answer}")
-
